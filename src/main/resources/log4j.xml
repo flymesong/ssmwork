@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- appender 部分是可用的日志输出方式定义，可以定义多个 -->
+    <appender name="CONSOLE_LOG" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <!--<param name="ConversionPattern" value="%-5p  %d %-15c{1} [%x]: %m%n"/>-->
+            <param name="ConversionPattern" value="%d %p [%c][%t] - %m%n"/>
+        </layout>
+    </appender>
+
+
+    <appender name="DailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/java/log/log.log "/><!-- 设置File参数：日志输出文件名 -->
+        <param name="Append" value="true"/>
+        <param name="Encoding" value="GBK"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <!--默认没有这两行，加上可以屏蔽输出调试信息到server.log中，提高启动速度-->
+        <!--
+        <param name="Target" value="/System.out"/>
+        <param name="Threshold" value="ERROR"/>
+        -->
+        <param name="Threshold" value="INFO"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-d{yyyy-MM-dd HH:mm:ss} [%c]-[%p] %m -(:%L)%n"/>
+        </layout>
+        <!-- <filter class="org.apache.log4j.varia.LevelRangeFilter">
+        注意这个min和max是相等的
+        <param name="levelMin" value="INFO" />
+        <param name="levelMax" value="INFO" />
+    	</filter> -->
+    </appender>
+
+    <!--  category 部分定义了特定包或者类的输出级别和方式，可以有多个 -->
+    <category name="cn">
+        <priority value="info"/>
+        <appender-ref ref="CONSOLE_LOG"/>
+        <appender-ref ref="DailyRollingFile"/>
+    </category>
+    <category name="com">
+        <priority value="info"/>
+        <appender-ref ref="CONSOLE_LOG"/>
+        <appender-ref ref="DailyRollingFile"/>
+    </category>
+
+    <category name="org.apache">
+        <priority value="error"/>
+        <appender-ref ref="CONSOLE_LOG"/>
+        <appender-ref ref="DailyRollingFile"/>
+    </category>
+
+</log4j:configuration>

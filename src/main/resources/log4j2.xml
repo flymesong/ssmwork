@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<configuration status="INFO" monitorInterval="30">
+    <appenders>
+        <!--??????????-->
+        <console name="Console" target="SYSTEM_OUT">
+            <!--???????-->
+            <PatternLayout pattern="%highlight{[ %p ] [%-d{yyyy-MM-dd HH:mm:ss}] [%l] %m%n}"/>
+        </console>
+
+        <!-- ????????Appender -->
+        <FileAppender name="File" fileName="d:java/log/log.log">
+            <PatternLayout pattern="%d %p [%c][%t] - %m%n" />
+        </FileAppender>
+
+    </appenders>
+
+    <loggers>
+        <!--???spring?mybatis??????DEBUG??-->
+        <logger name="org.springframework" level="INFO"></logger>
+        <logger name="org.mybatis" level="INFO"></logger>
+        <root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="File"/>
+        </root>
+    </loggers>
+</configuration>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.mapper.UserMapper">
+
+   <!-- <resultMap type="spring.bean.User" id="userMap">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="pwd" column="pwd" />
+        <result property="sex" column="sex" />
+        <result property="age" column="age" />
+        <result property="createtime" column="createtime" />
+
+    </resultMap>-->
+    <!-- 登录 -->
+    <select id="login" resultType="user">
+        select * from users where LoginName = #{loginName} and LoginPwd=#{loginPwd} and UserStater='1'
+    </select>
+
+    <!--loginName查询-->
+    <select id="search" resultType="user">
+        select * from users where LoginName = #{loginName}
+    </select>
+
+    <!--注册-->
+    <insert id="append" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users(LoginName,LoginPwd,TrueName,Email,Phone,Address,UserStater,Createtime) VALUES(#{loginName},#{loginPwd},#{trueName},#{email},#{phone},#{address},#{userStater},#{createtime});
+    </insert>
+
+    <!--更新-->
+    <update id="update"  >
+        update users set LoginName = #{loginName} ,LoginPwd=#{loginPwd},TrueName=#{trueName},Email=#{email},Phone=#{phone},Address=#{address}, Createtime=#{createtime} where Id = #{id}
+    </update>
+
+    <update id="delete">
+         update users set UserStater = #{userStater} where Id = #{id}
+    </update>
+
+</mapper>
